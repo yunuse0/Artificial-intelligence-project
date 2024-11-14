@@ -1,0 +1,56 @@
+#bu kısımda python kodları kullanılarak çeşitli veri arttırma ve işleme işlemleri gerçekleştirildi.
+import os
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from PIL import Image
+import numpy as np
+
+def augment_images_in_folder(input_folder, output_folder, num_augmented_images=6):
+    # yine her ihtimale karşı hata yaşamamak için yoksa klasör oluştur kısmımız.
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    # ImageDataGenerator ayarları - bu kısım görsellerin her birine uygulanacak veri işleme adımlarıdır.
+    datagen = ImageDataGenerator(
+        rotation_range=30,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        shear_range=0.2,
+        horizontal_flip=True,
+        fill_mode='nearest'
+    )
+
+    # Klasördeki bütün görüntüleri işlemek için bir döngü kurduk.
+    for image_name in os.listdir(input_folder):
+        image_path = os.path.join(input_folder, image_name)
+
+        try: #siyah beyaza çevirme konusunda sıkıntı yaşadığımız için boyut ve yapı yardımlarını yapay zekadan aldık (https://chatgpt.com)
+            img = Image.open(image_path)
+            img = img.convert("L") 
+
+            # Görüntüyü numpy array formatına çevirip 3 kanallı hale getirdik(chatgpt)
+            img_array = np.array(img, dtype=np.uint8)
+
+            # Siyah-beyaz görüntüyü 3 kanal olacak şekilde çoğalt(chatgpt)
+            img_array = np.stack((img_array,) * 3, axis=-1)  # (yükseklik, genişlik, 3) hale gelir(chatgpt)
+            img_array = img_array.reshape((1,) + img_array.shape)  # (1, yükseklik, genişlik, 3)(chatgpt)
+
+
+            # Her görüntü için istedigimiz sayıda(belirlenmiş) arttırlmış farklı örnekler üretiyoruz.
+            for i, batch in enumerate(datagen.flow(img_array, batch_size=1)):
+                augmented_image = batch[0].astype("uint8")
+                augmented_img = Image.fromarray(augmented_image)
+
+                # görsel dosyalarını yeni isimleriyle kaydetme işlemi.
+                output_path = os.path.join(output_folder, f"{os.path.splitext(image_name)[0]}_aug_{i}.jpg")
+                augmented_img.save(output_path)
+
+                if i >= num_augmented_images - 1:
+                    break  # arttırılmış görüntüler bizim belirlediğimiz sayıya ulaştığı zaman döngüyü kırdık.
+        except Exception as e:
+            print(f"Görüntü işlenemedi: {image_name}, hata: {e}")
+            #yapım aşamasında görüntü işlenemezse hatayı farketmek için exception oluşturduk.
+
+input_folder = "C:/Users/yunus emre/Desktop/DONE" #dosyaların alındığı klasör - resmi olmayan klasör
+output_folder = "C:/Users/yunus emre/Desktop/abc" #arttırılmış görsellerimizi tuttuğumuz klasör - işlemlerin sonrasında isimleri düzenlendi.
+
+augment_images_in_folder(input_folder, output_folder, num_augmented_images=6) #istediğimiz arttırılmış veri sayısını belirleme ve işlemleri gerçekleştirme kısmı
