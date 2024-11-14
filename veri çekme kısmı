@@ -4,7 +4,8 @@ import time
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-#hangi kütüphanelere ihtiyacımız olduğuna yapay zeka ve çeşitli tecrübeli insanlardan yardım alınarak kanaat getirdik.(https://chatgpt.com)
+#hangi kütüphanelere ihtiyacımız olduğuna yapay zeka, overflow ve çeşitli tecrübeli insanlardan yardım alınarak kanaat getirdik.(https://chatgpt.com)(https://stackoverflow.com)
+
 
 def google_image_search_download(query, target_path, target_count=10000):
     # Chrome seçeneklerini ayarlayıp tarayıcıyı başlatmak için gerekli kısım
