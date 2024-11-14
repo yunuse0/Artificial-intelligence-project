@@ -1,0 +1,78 @@
+# bu kısım yapay zeka projesinde tarayıcı üzerinden veri çekme bölümü için yazılmış python kodlarıdır.
+import os
+import time
+import requests
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+#hangi kütüphanelere ihtiyacımız olduğuna yapay zeka ve çeşitli tecrübeli insanlardan yardım alınarak kanaat getirdik.(https://chatgpt.com)
+
+def google_image_search_download(query, target_path, target_count=10000):
+    # Chrome seçeneklerini ayarlayıp tarayıcıyı başlatmak için gerekli kısım
+    # bu bölgedeki kod kısımları yapay zeka (https://chatgpt.com) yardımı ile hazırlandı, argümanlar bizim tarafımızdan düzenlendi.
+    options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    driver = webdriver.Chrome(options=options)
+
+    # Google Görseller URL'sini oluşturup arama yapılan kısım
+    # bu kısımda görsellerin kullanılacağı url'yi google arama aracı olarak belirledik.
+    search_url = f"https://www.google.com/search?q={query}&tbm=isch"
+    driver.get(search_url)
+
+    # Klasörümüzü oluşturup yolunu belirttik fakat her ihtimale karşı klasör yoksa oluştur satırı ekledik.
+    if not os.path.exists(target_path):
+        os.makedirs(target_path)
+
+    image_urls = set()
+    last_height = driver.execute_script("return document.body.scrollHeight")
+
+    while len(image_urls) < target_count:
+        # hedef sayıya ulaşana kadar url çekmeye devam edecek.
+        thumbnails = driver.find_elements(By.TAG_NAME, "img")
+        #''İmg'' etiketi olan her elementi bulacak.
+
+        for img in thumbnails[len(image_urls):]:
+            try:
+                # Tıklamadan önce, görselin URL'sini alıyoruz
+                img_url = img.get_attribute("src")
+                if img_url.startswith("http") and img_url not in image_urls:
+                    image_urls.add(img_url)
+                    print(f"{len(image_urls)} - Görsel bağlantısı eklendi: {img_url}")
+
+                    # url'Si alınan görseli indirip geridönüş mesajı yazdırıyoruz.
+                    print(f"{len(image_urls)} - İndiriliyor: {img_url}")
+                    response = requests.get(img_url, timeout=10)
+                    if response.status_code == 200:
+                        with open(os.path.join(target_path, f"{query}_{len(image_urls)}.jpg"), "wb") as f:
+                            f.write(response.content)
+                        print(f"{len(image_urls)} - {query}_{len(image_urls)}.jpg indirildi.")
+                    else:
+                        print(f"{len(image_urls)}. görsel indirilemedi. HTTP Durum Kodu: {response.status_code}")
+
+                    if len(image_urls) >= target_count:
+                        break
+
+            except Exception as e:
+                print("Görsel yüklenirken hata:", e)
+                #hata yakalamak amacı ile destek satırı.
+
+        # bu kısımda görsel olarak görünebilmesi açısından ve daha fazla veriye ulaşmamız için 2 sn süren sayfa kaydırma işlemi ekledik.
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)
+
+        # Yeni içerik yüklenmesini sağlamak için sayfa yüksekliğini kontrol ediyoruz.
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:  # Sayfa sonuna gelindiyse döngü sona eriyor ve indirme işlemimizin sonuna geliyoruz.
+            print("Sayfanın sonuna gelindi.")
+            break
+        last_height = new_height
+
+    # Tarayıcımızı kapatıyoruz.
+    driver.quit()
+
+    # İşlem tamamlandığında mesaj verip indirdiğimiz klasörü yazıyoruz.
+    print("İndirme işlemi tamamlandı.")
+    print("Görsellerin kaydedildiği dizin:", target_path)
+
+# alt kısımdaki bölüme anahtar kelimeleri(arama kısmına yazılacak kelimeleri) giriyoruz, klasör yolunu belirtiyoruz ve hedef sayıyı yazıyoruz. Çalıştırdığımızda bu verilere göre işlemleri gerçekleştirecek.
+google_image_search_download("", "C:/Users/yunus emre/Desktop/broken bones", 10000) #sayı fazla olsa da sayfa sonuna gelene kadar durmaması asıl önemli olan nokta.
