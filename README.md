@@ -1,18 +1,19 @@
-# Yapay-Zeka-Projesi
-## Yazılım Geliştirme Lab. dersi için google üzerinden görsel veri çekme kodları
+# Artificial-Intelligence-Project
+## Codes for retrieving visual data from Google for Software Development Lab. course
 
-**Proje Özeti:**
-   Projemizde öncelikle ilgili yerlerden istenilen verileri çekmemize yarayan kodları yazdık. Python dilini kullandık. İlk yazdığımız kod bloğu ilgili anahtar kelimeyi 'Google Search'de taratarak görselleri indirmeye yarıyor.
-   Söz konusu olan kod bloğu görseli:
-![veri çekme kısmı](https://github.com/user-attachments/assets/6ec6718e-cc6d-4f93-b9c9-788a116c0888)
+**Project Summary:**
+In our project, we first wrote the codes that allow us to retrieve the desired data from the relevant places. We used the Python language. The first code block we wrote is used to download images by scanning the relevant keyword in 'Google Search'.
+The code block image in question:
+![data retrieval part](https://github.com/user-attachments/assets/6ec6718e-cc6d-4f93-b9c9-788a116c0888)
 
-İlgili kodu kullanarak seçtiğimiz anahtar kelimelerle 15.000 adet civarında görsel indirdik. İndirilen verileri düzenledik, temizledik ve gerekli veri işleme adımlarını uyguladık.
-Elimizde olan temizlenmiş verileri tekrardan bir python kodu yazarak veri arttırma işlemi uyguladık.
-  Söz konusu olan kod bloğu görseli (2):
-![veri işleme ve arttırma](https://github.com/user-attachments/assets/49fa1371-a7b5-4655-ad9a-b709d2f07af6)
-Görseldeki kod bloğu seçilen verileri döndürme, filtreleme ve renk düzenleme işlemleri yapıyor.
+We downloaded around 15,000 images with the keywords we selected using the relevant code. We edited the downloaded data, cleaned it and applied the necessary data processing steps.
+We applied the data augmentation process by writing a python code again on the cleaned data we had.
+The code block in question is visual (2):
+![data processing and augmentation](https://github.com/user-attachments/assets/49fa1371-a7b5-4655-ad9a-b709d2f07af6)
+The code block in the visual performs the operations of rotating, filtering and color editing the selected data.
 
-**Kodların ve Programın Kullanımı**
-  Veri sağlama için yazılan kod bloklarında 'query' etiketindeki boşluğa anahtar kelime girilmesi gerekmektedir. Kod çalıştırıldığında girilen anahtar kelimeyi yeni bir sekme açıp 'Google Search' arama çubuğuna yapıştırarak kaynak sayfasındaki ''img'' etiketlerinin url adreslerine erişiyor. Erişilen url adreslerindeki görsellerin hedef belirtilen sayıya kadar hepsini indiriyor. Görüntü ve erişim kolaylığı için 2 saniyelik kaydırma işlemleri yapıyor. Sayfanın sonuna gelindiğinde ise indirilen dosyaların yer aldığı klasörün yolunu bir mesaj şeklinde yazdırarak sekmeyi kapatıyor. Bu şekilde işlem tamamlanmış oluyor.
+**Usage of Codes and Program**
+In the code blocks written for data provision, a keyword must be entered in the space in the 'query' tag. When the code is run, it opens a new tab with the entered keyword and pastes it into the 'Google Search' search bar, accessing the url addresses of the ''img'' tags on the source page. It downloads all the images in the accessed url addresses up to the target specified number. It performs 2-second scrolling operations for visual and ease of access. When the end of the page is reached, it prints the path of the folder containing the downloaded files in the form of a message and closes the tab. In this way, the process is completed.
 
-  Veri işleme ve arttırma için yazılan kod bloklarında ise tanımlanmış input ve output klasörlerine ihtiyaç duyuyor. Input klasörünün yolunu kodu çalıştırmadan önce belirtiyoruz ve bu klasördeki görselleri kod bloklarında belirtilen şekilde işleme ve seçilen sayıda arttırma işlemleri uyguluyor. Eğer bir çıkış klasörü varsa bu belirtiliyor, yoksa yazılan kod bölümü sayesinde otomatik olarak çıkış klasörü oluşturuyor. İşlenmiş görselleri bu klasöre kaydederek işlemi tamamlıyor.
+In the code blocks written for data processing and augmentation, it needs defined input and output folders. We specify the path of the input folder before running the code and it applies the processing of the images in this folder as specified in the code blocks and the augmentation operations to the selected number. If there is an output folder, this is specified, otherwise, it automatically creates an output folder thanks to the written code section. It completes the process by saving the processed images to this folder.
+
