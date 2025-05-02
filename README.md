@@ -17,3 +17,6 @@ In the code blocks written for data provision, a keyword must be entered in the 
 
 In the code blocks written for data processing and augmentation, it needs defined input and output folders. We specify the path of the input folder before running the code and it applies the processing of the images in this folder as specified in the code blocks and the augmentation operations to the selected number. If there is an output folder, this is specified, otherwise, it automatically creates an output folder thanks to the written code section. It completes the process by saving the processed images to this folder.
 
+## Second Part: Modifying and model training.
+
+In this section, images taken from scanners were organized and classified by going through various image processing code structures. Then, 5 different image processing models were trained using Google Colab. The results, graphs and training stages are stated in the report.
