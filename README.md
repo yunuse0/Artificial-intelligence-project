@@ -1,18 +1,95 @@
 # Artificial-Intelligence-Project
-## Codes for retrieving visual data from Google for Software Development Lab. course
+## Fracture Detection from X-ray Images using Vision Transformers (ViT)
 
-**Project Summary:**
-In our project, we first wrote the codes that allow us to retrieve the desired data from the relevant places. We used the Python language. The first code block we wrote is used to download images by scanning the relevant keyword in 'Google Search'.
+This project leverages deep learning and state-of-the-art Vision Transformer (ViT) models to classify bone X-ray images as **fractured** or **healthy**. It is designed to assist in early diagnosis and medical image analysis using AI-based image classification.
 
-We downloaded around 15,000 images with the keywords we selected using the relevant code. We edited the downloaded data, cleaned it and applied the necessary data processing steps.
-We applied the data augmentation process by writing a python code again on the cleaned data we had.
+---
+
+## Project Overview
+
+The model is trained on a dataset of labeled bone X-ray images. The images were preprocessed and classified using ViT-based architectures from the Hugging Face Transformers library.
+
+-  Task: Binary Classification (Fractured / Healthy)
+-  Model: `google/vit-base-patch16-224-in21k`
+-  Data: Pre-classified X-ray images
+-  Frameworks: PyTorch, Transformers, Datasets
+-  Evaluation: Accuracy, Precision, Recall, F1, AUC
+
+---
+
+##  How It Works
+
+1. **Preprocessing:**  
+   - Images resized to 224×224 (ViT input format)  
+   - Converted to RGB and normalized  
+
+2. **Feature Extraction:**  
+   - Used ViT, DeiT, Swin, Beit, ConvNext feature extractors from Hugging Face  
+
+3. **Model Training:**  
+   - Fine-tuned pre-trained ViT model on X-ray dataset  
+   - Training done using `Trainer` API  
+
+4. **Evaluation Metrics:**  
+   - Accuracy  
+   - Precision  
+   - Recall  
+   - F1-Score  
+   - AUC  
+
+---
+
+##  Sample Images
+
+> *Include a few examples from your dataset here if possible*  
+> *(e.g. fractured vs. healthy X-rays)*
+
+---
+
+##  Results for model Vit (You can see all results in report directory)
+
+| Metric      | Value     |
+|-------------|-----------|
+| Accuracy    | 63.8%     |
+| Precision   | 51%       |
+| Recall      | 97.5%     |
+| F1 Score    | 67%       |
+| AUC         | 70%       |
 
 
-**Usage of Codes and Program**
-In the code blocks written for data provision, a keyword must be entered in the space in the 'query' tag. When the code is run, it opens a new tab with the entered keyword and pastes it into the 'Google Search' search bar, accessing the url addresses of the ''img'' tags on the source page. It downloads all the images in the accessed url addresses up to the target specified number. It performs 2-second scrolling operations for visual and ease of access. When the end of the page is reached, it prints the path of the folder containing the downloaded files in the form of a message and closes the tab. In this way, the process is completed.
+---
 
-In the code blocks written for data processing and augmentation, it needs defined input and output folders. We specify the path of the input folder before running the code and it applies the processing of the images in this folder as specified in the code blocks and the augmentation operations to the selected number. If there is an output folder, this is specified, otherwise, it automatically creates an output folder thanks to the written code section. It completes the process by saving the processed images to this folder.
+##  Key libraries used:
 
-## Second Part: Modifying and model training.
+- transformers
 
-In this section, images taken from scanners were organized and classified by going through various image processing code structures. Then, 5 different image processing models were trained using Google Colab. The results, graphs and training stages are stated in the report.
+- datasets
+
+- scikit-learn
+
+- torch
+
+- Pillow
+
+## Future Work
+
+- Deploy as a web service with FastAPI or Streamlit
+
+- Test on other medical imaging datasets
+
+
+## Acknowledgements
+- Hugging Face Transformers & Datasets
+  
+- PyTorch
+  
+- Open medical X-ray datasets
+
+- Vision Transformer (ViT) by Google Research
+
+
+
+
+
+
+
