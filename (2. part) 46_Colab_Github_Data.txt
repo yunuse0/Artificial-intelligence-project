@@ -2,7 +2,7 @@ Colab:
 https://colab.research.google.com/drive/1BuoKPzOFwq-NQY545859VrrWPXGT87aW?usp=drive_link
 
 Git Hub:
-https://github.com/yunuse0/Yaz-l-m-Geli-tirme-Lab-Proje-devi
+https://github.com/yunuse0/Artificial-intelligence-project
 
 Veri:
 https://drive.google.com/drive/folders/1uRHO1A0hRygCeSwT9VUcO8ux0bQRNRB5?usp=drive_link
